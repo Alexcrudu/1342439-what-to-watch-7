@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Alexandra Crudu](https://up.htmlacademy.ru/react/7/user/1342439).
-* Наставник: `Неизвестно`.
+* Наставник: [Jura Zubach](https://htmlacademy.ru/profile/id95078).
 
 ---
 
