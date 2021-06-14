@@ -1,12 +1,16 @@
 import React from 'react';
 import MovieCard from '../movie-card/movie-card';
 import PropTypes from 'prop-types';
+import UserBlock from '../user-block/user-block';
+import SvgLogo from '../svg-logo/svg-logo';
+import SiteLogo from '../site-logo/site-logo';
 
 
 function MainPage({promoMovie, movies}) {
   const {name, genre, year, background, poster} = promoMovie;
   return (
     <React.Fragment>
+      <SvgLogo/>
       <section className="film-card">
         <div className="film-card__bg">
           <img
@@ -18,29 +22,8 @@ function MainPage({promoMovie, movies}) {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width="63"
-                  height="63"
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <SiteLogo/>
+          <UserBlock/>
         </header>
 
         <div className="film-card__wrap">
