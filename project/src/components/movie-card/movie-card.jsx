@@ -1,34 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import filmProp from '../../props/film-prop';
+import {Link} from 'react-router-dom';
 
-function MovieCard({ movie }) {
-  const { name, moviePage, previewImage } = movie;
+function MovieCard({ film, handleMouseOver }) {
+  const { id, name, previewImage } = film;
 
   return (
-    <article className="small-film-card catalog__films-card">
-      <div className="small-film-card__image">
-        <img
-          src={previewImage}
-          alt={name}
-          width="280"
-          height="175"
-        />
-      </div>
+    <article className="small-film-card catalog__films-card" onMouseOver={() =>handleMouseOver(film)}>
+      <Link to={`/films/${id}`}>
+        <div className="small-film-card__image">
+          <img src={previewImage} alt={name} width="280" height="175" />
+        </div>
+      </Link>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href={moviePage}>
+        <Link to={`/films/${id}`} className="small-film-card__link" >
           {name}
-        </a>
+        </Link>
       </h3>
     </article>
   );
 }
 
 MovieCard.propTypes = {
-  movie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    moviePage: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-  }).isRequired,
+  film:
+    PropTypes.oneOfType(
+      [filmProp],
+    ).isRequired,
+  handleMouseOver: PropTypes.func.isRequired,
 };
 
 export default MovieCard;

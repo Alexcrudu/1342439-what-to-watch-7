@@ -2,15 +2,20 @@ import React from 'react';
 import UserBlock from '../user-block/user-block';
 import SvgLogo from '../svg-logo/svg-logo';
 import SiteLogo from '../site-logo/site-logo';
+import {Link, useParams} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import filmProp from '../../props/film-prop';
 
-function AddCommentScreen() {
+function AddCommentScreen({films}) {
+  const {id} = useParams();
+  const {name, backgroundImage, posterImage} = films.find((film) => film.id === Number(id));
   return (
     <React.Fragment>
       <SvgLogo />
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+            <img src={backgroundImage} alt={name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -21,10 +26,14 @@ function AddCommentScreen() {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                  if ({id}) {
+                    <Link  to={`/films/${id}`} className="breadcrumbs__link">The Grand Budapest Hotel</Link>
+                  } else {
+                    <Link  to={''} className="breadcrumbs__link"></Link>
+                  }
                 </li>
                 <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link">Add review</a>
+                  <a href={`/films/${id}/review`} className="breadcrumbs__link">Add review</a>
                 </li>
               </ul>
             </nav>
@@ -33,7 +42,7 @@ function AddCommentScreen() {
           </header>
 
           <div className="film-card__poster film-card__poster--small">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+            <img src={posterImage} alt={name} width="218" height="327"/>
           </div>
         </div>
 
@@ -86,5 +95,12 @@ function AddCommentScreen() {
     </React.Fragment>
   );
 }
+
+AddCommentScreen.propTypes = {
+  films: PropTypes.arrayOf(
+    PropTypes.oneOfType(
+      [filmProp],
+    )).isRequired,
+};
 
 export default AddCommentScreen;

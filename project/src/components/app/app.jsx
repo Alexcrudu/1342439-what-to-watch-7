@@ -9,28 +9,30 @@ import AddCommentScreen from '../add-comment/add-comment';
 import FilmPlayerScreen from '../player/player ';
 import NoPageScreen from '../no-page/no-page';
 import {AppRoute} from '../../const.js';
+import filmProp from '../../props/film-prop';
+import reviewProp from '../../props/film-prop';
 
-function App({promoMovie, movies}) {
+function App({films, reviews}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <MainPage promoMovie = {promoMovie} movies = {movies} />;
+          <MainPage films = {films} />;
         </Route>
         <Route exact path={AppRoute.SIGN_IN}>
           <SignInScreen />
         </Route>
         <Route exact path= {AppRoute.MY_LIST}>
-          <MyListScreen />
+          <MyListScreen films = {films} />
         </Route>
         <Route exact path={AppRoute.FILM_DETAILS}>
-          <FilmDetailsScreen/>
+          <FilmDetailsScreen films={films}/>
         </Route>
         <Route exact path={AppRoute.ADD_COMMENT}>
           <AddCommentScreen/>
         </Route>
         <Route exact path={AppRoute.FILM_PLAYER}>
-          <FilmPlayerScreen/>
+          <FilmPlayerScreen films={films} />
         </Route>
         <Route>
           <NoPageScreen/>
@@ -41,18 +43,15 @@ function App({promoMovie, movies}) {
 }
 
 App.propTypes = {
-  promoMovie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    poster: PropTypes.string.isRequired,
-  }).isRequired,
-  movies: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      moviePage: PropTypes.string.isRequired,
-      previewImage: PropTypes.string.isRequired,
-    })).isRequired,
+  films: PropTypes.arrayOf(
+    PropTypes.oneOfType(
+      [filmProp],
+    )).isRequired,
+  reviews: PropTypes.arrayOf(
+    PropTypes.oneOfType(
+      [reviewProp],
+    ).isRequired,
+  ),
 };
 
 export default App;

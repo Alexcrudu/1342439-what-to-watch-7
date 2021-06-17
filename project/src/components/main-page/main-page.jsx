@@ -1,20 +1,23 @@
 import React from 'react';
-import MovieCard from '../movie-card/movie-card';
+// import MovieCard from '../movie-card/movie-card';
 import PropTypes from 'prop-types';
 import UserBlock from '../user-block/user-block';
 import SvgLogo from '../svg-logo/svg-logo';
 import SiteLogo from '../site-logo/site-logo';
+import Footer from '../footer/footer';
+import FilmsList from '../films-list/films-list';
+import filmProp from '../../props/film-prop';
 
 
-function MainPage({promoMovie, movies}) {
-  const {name, genre, year, background, poster} = promoMovie;
+function MainPage({films}) {
+  const {name, genre, released, backgroundImage, posterImage} = films[0];
   return (
     <React.Fragment>
       <SvgLogo/>
       <section className="film-card">
         <div className="film-card__bg">
           <img
-            src={background}
+            src={backgroundImage}
             alt={name}
           />
         </div>
@@ -30,7 +33,7 @@ function MainPage({promoMovie, movies}) {
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src={poster}
+                src={posterImage}
                 alt={name}
                 width="218"
                 height="327"
@@ -41,7 +44,7 @@ function MainPage({promoMovie, movies}) {
               <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{year}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -122,9 +125,7 @@ function MainPage({promoMovie, movies}) {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {movies.map((movie) => <MovieCard key={movie.name +movie.moviePage} movie={movie}/>)}
-          </div>
+          <FilmsList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">
@@ -133,39 +134,17 @@ function MainPage({promoMovie, movies}) {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );
 }
 
 MainPage.propTypes = {
-  promoMovie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    background: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-  }).isRequired,
-  movies: PropTypes.arrayOf(
-    PropTypes.shape({
-      name:
-      PropTypes.string.isRequired,
-      moviePage: PropTypes.string.isRequired,
-      promoMovie: PropTypes.string.isRequired,
-    })).isRequired,
+  films: PropTypes.arrayOf(
+    PropTypes.oneOfType(
+      [filmProp],
+    )).isRequired,
 };
 
 export default MainPage;
