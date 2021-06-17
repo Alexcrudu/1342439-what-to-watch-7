@@ -29,7 +29,7 @@ function App({films, reviews}) {
           <FilmDetailsScreen films={films}/>
         </Route>
         <Route exact path={AppRoute.ADD_COMMENT}>
-          <AddCommentScreen/>
+          <AddCommentScreen films={films} />
         </Route>
         <Route exact path={AppRoute.FILM_PLAYER}>
           <FilmPlayerScreen films={films} />
