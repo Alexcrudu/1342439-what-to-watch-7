@@ -8,13 +8,13 @@ function MovieCard({ film, handleMouseOver }) {
 
   return (
     <article className="small-film-card catalog__films-card" onMouseOver={() =>handleMouseOver(film)}>
-      <Link to={`/films/${id}`}>
+      <Link to={`/film/${id}`}>
         <div className="small-film-card__image">
           <img src={previewImage} alt={name} width="280" height="175" />
         </div>
       </Link>
       <h3 className="small-film-card__title">
-        <Link to={`/films/${id}`} className="small-film-card__link" >
+        <Link to={`/film/${id}`} className="small-film-card__link" >
           {name}
         </Link>
       </h3>
@@ -24,10 +24,8 @@ function MovieCard({ film, handleMouseOver }) {
 
 MovieCard.propTypes = {
   film:
-    PropTypes.oneOfType(
-      [filmProp],
-    ).isRequired,
-  handleMouseOver: PropTypes.func.isRequired,
+      PropTypes.shape(filmProp).isRequired,
+      handleMouseOver: PropTypes.func.isRequired,
 };
 
 export default MovieCard;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useHistory} from 'react-router-dom';
 import UserBlock from '../user-block/user-block';
 import SvgLogo from '../svg-logo/svg-logo';
 import SiteLogo from '../site-logo/site-logo';
@@ -11,8 +11,19 @@ import {filmRating} from '../../utils';
 
 function FilmDetailsScreen({films}) {
   const {id} = useParams();
+  const history = useHistory();
 
-  const {name, posterImage, backgroundImage, genre, released, rating, director, starring} = films.find((film)=> film.id === Number(id));
+  const film = films.find((film)=> film.id === Number(id))
+
+  if(!film) {
+    //
+    //  history.push('');
+    return(
+      <Link to={''} ></Link>
+    )
+  }
+
+  const {name, posterImage, backgroundImage, genre, released, rating, director, starring} = film;
   return (
     <React.Fragment>
       <SvgLogo />
@@ -50,7 +61,7 @@ function FilmDetailsScreen({films}) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/film/${id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -123,9 +134,8 @@ function FilmDetailsScreen({films}) {
 
 FilmDetailsScreen.propTypes = {
   films: PropTypes.arrayOf(
-    PropTypes.oneOfType(
-      [filmProp],
-    )).isRequired,
+    filmProp,
+  ).isRequired,
 };
 
 export default FilmDetailsScreen;

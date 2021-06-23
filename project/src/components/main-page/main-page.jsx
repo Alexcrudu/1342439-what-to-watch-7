@@ -142,9 +142,8 @@ function MainPage({films}) {
 
 MainPage.propTypes = {
   films: PropTypes.arrayOf(
-    PropTypes.oneOfType(
-      [filmProp],
-    )).isRequired,
+    filmProp,
+  ).isRequired,
 };
 
 export default MainPage;

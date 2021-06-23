@@ -20,9 +20,8 @@ function FilmsList ({films}) {
 
 FilmsList.propTypes = {
   films: PropTypes.arrayOf(
-    PropTypes.oneOfType(
-      [filmProp],
-    )).isRequired,
+    filmProp,
+  ).isRequired,
 };
 
 export default FilmsList;

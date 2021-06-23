@@ -48,9 +48,8 @@ function FilmPlayerScreen ({films}) {
 
 FilmPlayerScreen.propTypes = {
   films: PropTypes.arrayOf(
-    PropTypes.oneOfType(
-      [filmProp],
-    )).isRequired,
+    filmProp,
+  ).isRequired,
 };
 
 export default FilmPlayerScreen;

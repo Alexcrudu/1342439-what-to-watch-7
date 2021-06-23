@@ -35,9 +35,8 @@ function MyListScreen({films}) {
 
 MyListScreen.propTypes = {
   films: PropTypes.arrayOf(
-    PropTypes.oneOfType(
-      [filmProp],
-    )).isRequired,
+      filmProp,
+    ).isRequired,
 };
 
 

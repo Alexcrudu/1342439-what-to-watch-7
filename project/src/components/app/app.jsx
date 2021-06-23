@@ -44,14 +44,11 @@ function App({films, reviews}) {
 
 App.propTypes = {
   films: PropTypes.arrayOf(
-    PropTypes.oneOfType(
-      [filmProp],
-    )).isRequired,
+    filmProp,
+  ).isRequired,
   reviews: PropTypes.arrayOf(
-    PropTypes.oneOfType(
-      [reviewProp],
-    ).isRequired,
-  ),
+    reviewProp,
+  ).isRequired,
 };
 
 export default App;

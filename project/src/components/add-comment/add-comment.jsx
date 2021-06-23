@@ -2,16 +2,21 @@ import React from 'react';
 import UserBlock from '../user-block/user-block';
 import SvgLogo from '../svg-logo/svg-logo';
 import SiteLogo from '../site-logo/site-logo';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import filmProp from '../../props/film-prop';
 import Rating from '../rating/rating';
 
-function AddCommentScreen({films}) {
-  console.log(films)
+function AddCommentScreen({films, reviews}) {
   const [filmStars, setFilmStars] = useState(0);
   const [commenText, setCommentText] = useState('');
   const {id} = useParams();
+  const history = useHistory();
+
+  const film = films.find((film) => film.id === Number(id));
+if (!film) {
+  history.push('');
+}
   const {name, backgroundImage, posterImage} = films.find((film) => film.id === Number(id));
 
   function handleStarsChange(e) {
@@ -40,14 +45,10 @@ function AddCommentScreen({films}) {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  if ({id}) {
-                    <Link  to={`/films/${id}`} className="breadcrumbs__link">The Grand Budapest Hotel</Link>
-                  } else {
-                    <Link  to={''} className="breadcrumbs__link"></Link>
-                  }
+                  <Link  to={`/film/${id}`} className="breadcrumbs__link">The Grand Budapest Hotel</Link>
                 </li>
                 <li className="breadcrumbs__item">
-                  <a href={`/films/${id}/review`} className="breadcrumbs__link">Add review</a>
+                  <a href={`/film/${id}/review`} className="breadcrumbs__link">Add review</a>
                 </li>
               </ul>
             </nav>
@@ -82,9 +83,8 @@ function AddCommentScreen({films}) {
 
 AddCommentScreen.propTypes = {
   films: PropTypes.arrayOf(
-    PropTypes.oneOfType(
-      [filmProp],
-    )).isRequired,
+    filmProp,
+  ).isRequired,
 };
 
 export default AddCommentScreen;
