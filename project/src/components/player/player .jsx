@@ -1,12 +1,17 @@
 import React from 'react';
 import SvgLogo from '../svg-logo/svg-logo';
+import {useParams} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import filmProp from '../../props/film-prop';
 
-function FilmPlayerScreen () {
+function FilmPlayerScreen ({films}) {
+  const {id} =useParams();
+  const {name, runTime, videoLink} = films.find((film) =>film.id === Number(id));
   return (
     <React.Fragment>
       <SvgLogo />
       <div className="player">
-        <video src="#" className="player__video" poster="img/player-poster.jpg"/>
+        <video src={videoLink} className="player__video" poster="img/player-poster.jpg"/>
 
         <button type="button" className="player__exit">Exit</button>
 
@@ -16,7 +21,7 @@ function FilmPlayerScreen () {
               <progress className="player__progress" value="30" max="100"/>
               <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
             </div>
-            <div className="player__time-value">1:30:29</div>
+            <div className="player__time-value">{runTime}</div>
           </div>
 
           <div className="player__controls-row">
@@ -26,7 +31,7 @@ function FilmPlayerScreen () {
               </svg>
               <span>Play</span>
             </button>
-            <div className="player__name">Transpotting</div>
+            <div className="player__name">{name}</div>
 
             <button type="button" className="player__full-screen">
               <svg viewBox="0 0 27 27" width="27" height="27">
@@ -40,5 +45,11 @@ function FilmPlayerScreen () {
     </React.Fragment>
   );
 }
+
+FilmPlayerScreen.propTypes = {
+  films: PropTypes.arrayOf(
+    filmProp,
+  ).isRequired,
+};
 
 export default FilmPlayerScreen;
