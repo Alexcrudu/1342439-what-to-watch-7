@@ -7,10 +7,11 @@ import SiteLogo from '../site-logo/site-logo';
 import Footer from '../footer/footer';
 import FilmsList from '../films-list/films-list';
 import filmProp from '../../props/film-prop';
+import {Link} from 'react-router-dom';
 
 
 function MainPage({films}) {
-  const {name, genre, released, backgroundImage, posterImage} = films[0];
+  const {id, name, genre, released, backgroundImage, posterImage} = films[0];
   return (
     <React.Fragment>
       <SvgLogo/>
@@ -48,15 +49,14 @@ function MainPage({films}) {
               </p>
 
               <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
+                <Link to={`/player/${id}`}>
+                  <button className="btn btn--play film-card__button" type="button">
+                    <svg viewBox="0 0 19 19" width="19" height="19">
+                      <use xlinkHref="#play-s"></use>
+                    </svg>
+                    <span>Play</span>
+                  </button>
+                </Link>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
