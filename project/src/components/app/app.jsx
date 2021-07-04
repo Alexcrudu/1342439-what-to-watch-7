@@ -26,7 +26,7 @@ function App({films, reviews}) {
           <MyListScreen films = {films} />
         </Route>
         <Route exact path={AppRoute.FILM_DETAILS}>
-          <FilmDetailsScreen films={films}/>
+          <FilmDetailsScreen films={films} reviews={reviews}/>
         </Route>
         <Route exact path={AppRoute.ADD_COMMENT}>
           <AddCommentScreen films={films} />

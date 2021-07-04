@@ -14,3 +14,9 @@ export const FilmRating = {
   NORMAL: 'Normal',
   BAD: 'Bad',
 };
+
+export const FilmTab = {
+  OVERVIEW: 'Overview',
+  INFORMATION: 'Details',
+  REVIEWS: 'Reviews',
+};

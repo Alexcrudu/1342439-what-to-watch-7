@@ -30,12 +30,11 @@ function MovieCard({ film, activeFilm, isPlaying, handleMouseOver, handleMouseLe
 }
 
 MovieCard.propTypes = {
-  film:
-      PropTypes.shape(filmProp).isRequired,
-      activeFilm: filmProp,
-      isPlaying: PropTypes.bool.isRequired,
-      handleMouseLeave: PropTypes.func.isRequired,
-      handleMouseOver: PropTypes.func.isRequired,
+  film: PropTypes.shape(filmProp).isRequired,
+  activeFilm: PropTypes.shape(filmProp),
+  isPlaying: PropTypes.bool.isRequired,
+  handleMouseLeave: PropTypes.func.isRequired,
+  handleMouseOver: PropTypes.func.isRequired,
 };
 
 export default MovieCard;
