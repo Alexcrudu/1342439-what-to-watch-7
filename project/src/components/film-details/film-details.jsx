@@ -5,13 +5,24 @@ import SvgLogo from '../svg-logo/svg-logo';
 import SiteLogo from '../site-logo/site-logo';
 import PropTypes from 'prop-types';
 import filmProp from '../../props/film-prop';
+import reviewsProp from '../../props/review-prop';
 import FilmsList from '../films-list/films-list';
 import Footer from '../footer/footer';
-import {filmRating} from '../../utils';
+// import {filmRating} from '../../utils';
+import FilmTabs from '../film-tabs/film-tabs';
 
-function FilmDetailsScreen({films}) {
+const MAX_SHOWED_FILMS = 4;
+
+function getSameGanreFilm(films, currentFilm) {
+  if(films.length < MAX_SHOWED_FILMS) {
+    return films.filter((film) =>film !== currentFilm).filter((film)=> film.genre === currentFilm.genre).slice(0, films.length);
+  }
+
+  return films.filter((film) => film !== currentFilm).filter((film) => film.genre === currentFilm.genre).slice(0, MAX_SHOWED_FILMS);
+}
+
+function FilmDetailsScreen({films, reviews}) {
   const {id} = useParams();
-  const history = useHistory();
 
   const film = films.find((film)=> film.id === Number(id))
 
@@ -21,7 +32,7 @@ function FilmDetailsScreen({films}) {
     )
   }
 
-  const {name, posterImage, backgroundImage, genre, released, rating, director, starring} = film;
+  const {name, posterImage, backgroundImage, genre, released} = film;
   return (
     <React.Fragment>
       <SvgLogo />
@@ -73,7 +84,9 @@ function FilmDetailsScreen({films}) {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327"/>
             </div>
 
-            <div className="film-card__desc">
+            <FilmTabs film={film} reviews={reviews}/>
+
+            {/* <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
@@ -114,7 +127,7 @@ function FilmDetailsScreen({films}) {
                   </strong>
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -123,7 +136,7 @@ function FilmDetailsScreen({films}) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={films.slice(0,4)} />
+          <FilmsList films={getSameGanreFilm(films, film)} />
         </section>
 
         <Footer />
@@ -135,6 +148,9 @@ function FilmDetailsScreen({films}) {
 FilmDetailsScreen.propTypes = {
   films: PropTypes.arrayOf(
     filmProp,
+  ).isRequired,
+  reviews: PropTypes.arrayOf(
+    reviewsProp,
   ).isRequired,
 };
 

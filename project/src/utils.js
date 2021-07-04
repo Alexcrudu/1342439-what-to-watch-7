@@ -14,4 +14,23 @@ export function filmRating (rating) {
     ratingFilm = FilmRating.AWSOME;
   }
   return ratingFilm;
+};
+
+export function getRandomInt(min,max){
+  return Math.floor(Math.random()*(max-min+1)+min);
 }
+
+export const getRandomElement = (array) => array[getRandomInt(0, array.length - 1)];
+
+export const getRandomElements = (array, elementsNumber) => {
+  const randomElements = [];
+
+  while(randomElements.length < elementsNumber) {
+    const randomElement = getRandomElement(array);
+
+    if (!randomElements.includes(randomElement)) {
+      randomElements.push(randomElement);
+    }
+  }
+  return randomElements;
+};
