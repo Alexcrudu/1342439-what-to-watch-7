@@ -10,6 +10,7 @@ import FilmsList from '../films-list/films-list';
 import Footer from '../footer/footer';
 // import {filmRating} from '../../utils';
 import FilmTabs from '../film-tabs/film-tabs';
+import {connect} from 'react-redux';
 
 const MAX_SHOWED_FILMS = 4;
 
@@ -21,7 +22,7 @@ function getSameGanreFilm(films, currentFilm) {
   return films.filter((film) => film !== currentFilm).filter((film) => film.genre === currentFilm.genre).slice(0, MAX_SHOWED_FILMS);
 }
 
-function FilmDetailsScreen({films, reviews}) {
+function FilmDetailsScreen({ films, reviews}) {
   const {id} = useParams();
 
   const film = films.find((film)=> film.id === Number(id))
@@ -145,6 +146,12 @@ function FilmDetailsScreen({films, reviews}) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+const FilmDetailsScreenConnected = connect(mapStateToProps)(FilmDetailsScreen)
+
 FilmDetailsScreen.propTypes = {
   films: PropTypes.arrayOf(
     filmProp,
@@ -154,4 +161,4 @@ FilmDetailsScreen.propTypes = {
   ).isRequired,
 };
 
-export default FilmDetailsScreen;
+export default FilmDetailsScreenConnected;

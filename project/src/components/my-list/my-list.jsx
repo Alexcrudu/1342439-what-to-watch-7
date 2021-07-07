@@ -6,6 +6,7 @@ import FilmsList from '../films-list/films-list';
 import PropTypes from 'prop-types';
 import Footer from '../footer/footer';
 import filmProp from '../../props/film-prop';
+import {connect} from 'react-redux';
 
 function MyListScreen({films}) {
   return (
@@ -33,6 +34,12 @@ function MyListScreen({films}) {
   );
 }
 
+const  mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+const MyListScreenConnected = connect(mapStateToProps)(MyListScreen);
+
 MyListScreen.propTypes = {
   films: PropTypes.arrayOf(
       filmProp,
@@ -40,4 +47,4 @@ MyListScreen.propTypes = {
 };
 
 
-export default MyListScreen;
+export default MyListScreenConnected;

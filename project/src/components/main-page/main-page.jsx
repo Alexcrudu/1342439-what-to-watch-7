@@ -8,9 +8,20 @@ import Footer from '../footer/footer';
 import FilmsList from '../films-list/films-list';
 import filmProp from '../../props/film-prop';
 import {Link} from 'react-router-dom';
+import GenresList from '../genres-list/genres-list';
+import {connect} from 'react-redux';
+import {ALL_GENRES} from '../../const';
+
+function getFilmsByGenre(films, genre) {
+  if(genre === ALL_GENRES) {
+    return films;
+  }
+
+  return films.filter((film) => film.genre === genre);
+}
 
 
-function MainPage({films}) {
+function MainPage({films, currentGenre}) {
   const {id, name, genre, released, backgroundImage, posterImage} = films[0];
   return (
     <React.Fragment>
@@ -72,7 +83,7 @@ function MainPage({films}) {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
+          {/* <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
               <a href="#" className="catalog__genres-link">
                 All genres
@@ -123,15 +134,16 @@ function MainPage({films}) {
                 Thrillers
               </a>
             </li>
-          </ul>
+          </ul> */}
+          <GenresList />
 
-          <FilmsList films={films} />
+          <FilmsList films={getFilmsByGenre(films, currentGenre)} />
 
-          <div className="catalog__more">
+          {/* <div className="catalog__more">
             <button className="catalog__button" type="button">
               Show more
             </button>
-          </div>
+          </div> */}
         </section>
 
         <Footer />
@@ -140,10 +152,18 @@ function MainPage({films}) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  currentGenre: state.currentGenre,
+  films: state.films,
+});
+
+const MainPageConnected = connect(mapStateToProps)(MainPage)
+
 MainPage.propTypes = {
+  currentGenre: PropTypes.string.isRequired,
   films: PropTypes.arrayOf(
     filmProp,
   ).isRequired,
 };
 
-export default MainPage;
+export default MainPageConnected;
