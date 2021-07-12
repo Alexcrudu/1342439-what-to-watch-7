@@ -17,16 +17,16 @@ function App({films, reviews}) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <MainPage films = {films} />;
+          <MainPage />;
         </Route>
         <Route exact path={AppRoute.SIGN_IN}>
           <SignInScreen />
         </Route>
         <Route exact path= {AppRoute.MY_LIST}>
-          <MyListScreen films = {films} />
+          <MyListScreen />
         </Route>
         <Route exact path={AppRoute.FILM_DETAILS}>
-          <FilmDetailsScreen films={films} reviews={reviews}/>
+          <FilmDetailsScreen reviews={reviews}/>
         </Route>
         <Route exact path={AppRoute.ADD_COMMENT}>
           <AddCommentScreen films={films} />
