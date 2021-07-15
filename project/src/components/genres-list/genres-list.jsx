@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {resetFilmsPerStep, setCurrentGenre} from '../../store/action.js';
+import {setCurrentGenre} from '../../store/action.js';
 import PropTypes from 'prop-types';
 import filmProp from '../../props/film-prop';
 import {ALL_GENRES} from '../../const';
@@ -34,7 +34,6 @@ const mapDispatchToProps = (dispatch) => ({
     evt.preventDefault();
     if(evt.target.matches('a')) {
       dispatch(setCurrentGenre(evt.target.textContent));
-      dispatch(resetFilmsPerStep());
     }
   },
 });
