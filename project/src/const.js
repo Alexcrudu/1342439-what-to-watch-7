@@ -22,3 +22,18 @@ export const FilmTab = {
   INFORMATION: 'Details',
   REVIEWS: 'Reviews',
 };
+
+export const AythorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
+export const APIRoute = {
+  FILMS: '/films',
+  PROMO: '/promo',
+  FAVORITE: '/favorite',
+  COMMENTS: '/comments',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+}
