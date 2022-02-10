@@ -1,6 +1,7 @@
 export const ActionType = {
   SET_CURRENT_GENRE: 'filters/currentGenreSet',
-  SET_FILMS: 'films/filmsSet',
+  FILMS_FETCH_DATA: 'data/filmsFetchData',
+  SET_FILMS_DATA: 'data/filmsSetData'
 };
 
 export function setCurrentGenre(genre) {
@@ -10,9 +11,15 @@ export function setCurrentGenre(genre) {
   };
 };
 
-export function setFilms(films) {
+export function filmsFetchData() {
   return {
-    type: ActionType.SET_FILMS,
-    payload: films,
+    type: ActionType.FILMS_FETCH_DATA,
   };
 };
+
+export function filmsSetData(films) {
+  return {
+    type: ActionType.SET_FILMS_DATA,
+    payload: films,
+  }
+}

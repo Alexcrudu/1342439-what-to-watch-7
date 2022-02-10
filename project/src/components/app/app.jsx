@@ -11,8 +11,16 @@ import NoPageScreen from '../no-page/no-page';
 import {AppRoute} from '../../const.js';
 import filmProp from '../../props/film-prop';
 import reviewProp from '../../props/film-prop';
+import {connect} from 'react-redux';
+import SpinnerScreen from '../spinner-screen/spinner-screen.jsx';
 
-function App({films, reviews}) {
+function App({films, reviews, isLoading}) {
+
+  if (isLoading) {
+    return (
+      <SpinnerScreen />
+    );
+  }
   return (
     <BrowserRouter>
       <Switch>
@@ -42,6 +50,13 @@ function App({films, reviews}) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  films: state.films,
+  isLoading: state.isLoading,
+});
+
+const AppConnected = connect(mapStateToProps)(App);
+
 App.propTypes = {
   films: PropTypes.arrayOf(
     filmProp,
@@ -49,6 +64,7 @@ App.propTypes = {
   reviews: PropTypes.arrayOf(
     reviewProp,
   ).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
-export default App;
+export default AppConnected;

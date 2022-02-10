@@ -1,10 +1,11 @@
 import { ActionType} from './action.js';
-import {films} from '../mock/films-mock';
+// import {films} from '../mock/films-mock';
 
 
 const initialState = {
   currentGenre: 'All genres',
-  films: films,
+  isLoading: false,
+  films: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,10 +19,22 @@ const reducer = (state = initialState, action) => {
           starring: [...film.starring,],
         })),
       };
-    case ActionType.SET_FILMS:
+    case ActionType.FILMS_FETCH_DATA:
       return {
         ...state,
-        films: action.payload.films,
+        isLoading: true,
+        films: state.films.map((film) => ({
+          ...film,
+          starring: [
+            ...film.starring,
+          ],
+        })),
+      };
+    case ActionType.SET_FILMS_DATA:
+      return {
+        ...state,
+        isLoading: false,
+        films: action.payload,
       };
     default:
       return state;
